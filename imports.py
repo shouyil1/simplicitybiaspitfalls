@@ -35,7 +35,22 @@ def get_data(**c):
     smargin = c['lin_margin'] if c['same_margin'] else c['slab_margin']
     data_func = gendata.generate_ub_linslab_data_v2
     spc = [3]*c['num_slabs3']+[5]*c['num_slabs'] + [7]*c['num_slabs7']
-    data = data_func(c['num_train'], c['dim'], c['lin_margin'], slabs_per_coord=spc, eff_slab_margin=smargin, random_transform=c['random_transform'], N_te=c['num_test'],
-                     corrupt_lin_margin=c['corrupt_lin_margin'], num_lin=c['num_lin'], num_slabs=c['num_slabs3']+c['num_slabs']+c['num_slabs7'], width=c['width'], bs=c['bs'], 
-                     corrupt_lin=c['corrupt_lin'], corrupt_slab=c['corrupt_slab'], corrupt_slab7=c['corrupt_slab7'])
+    data = data_func(
+        c['num_train'], c['dim'], c['lin_margin'],
+        slabs_per_coord=spc,
+        eff_slab_margin=smargin,
+        random_transform=c.get('random_transform', False),
+        N_te=c.get('num_test', 0),
+        corrupt_lin_margin=c.get('corrupt_lin_margin', False),
+        num_lin=c.get('num_lin', 0),
+        num_slabs=len(spc),
+        width=c.get('width', 1),
+        bs=c.get('bs', 1),
+        corrupt_lin=c.get('corrupt_lin', 0),
+        corrupt_slab=c.get('corrupt_slab', 0),
+        corrupt_slab7=c.get('corrupt_slab7', 0)
+    )
+    # data = data_func(c['num_train'], c['dim'], c['lin_margin'], slabs_per_coord=spc, eff_slab_margin=smargin, random_transform=c['random_transform'], N_te=c['num_test'],
+    #                  corrupt_lin_margin=c['corrupt_lin_margin'], num_lin=c['num_lin'], num_slabs=c['num_slabs3']+c['num_slabs']+c['num_slabs7'], width=c['width'], bs=c['bs'], 
+    #                  corrupt_lin=c['corrupt_lin'], corrupt_slab=c['corrupt_slab'], corrupt_slab7=c['corrupt_slab7'])
     return data
