@@ -17,8 +17,8 @@ import gpu_utils as gu
 from sklearn import metrics
 import collections
 from sklearn.metrics import roc_auc_score
-
-plt.style.use('seaborn-ticks')
+sns.set_style("ticks")
+# plt.style.use('seaborn-ticks')
 import matplotlib.ticker as ticker
 
 def get_orthonormal_matrix(n):
